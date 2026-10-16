@@ -7,6 +7,7 @@ import Header from './components/Header'
 import Footer from './components/Footer';
 const CalcPreseleccion = lazy(()=> import('./components/CalcPreseleccion'))
 const CalcSeleccion = lazy(()=> import('./components/CalcSeleccion'))
+const SobreMi = lazy(()=> import('./components/SobreMi'))
 
 function App() {
  
@@ -28,6 +29,13 @@ function App() {
               <CalcSeleccion/>
             </Suspense>
           } 
+        />
+        <Route path='/sobre-mi'
+          element={
+            <Suspense fallback={<div>Cargando…</div>}>
+              <SobreMi/>
+            </Suspense>
+          }
         />
       </Routes>
       <Footer/>
