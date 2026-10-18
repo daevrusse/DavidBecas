@@ -91,9 +91,9 @@ export const guia = {
   etiqueta: 'actualizada',
   autor: 'Por David Becas: Exbecario Beca18 · +1500 postulantes orientados',
   subtitulo: 'No te pierdas todos los cambios de la convocatoria. Tu guía paso a paso de postulación.',
-  precio: 'S/ 9,90',
+  precio: 'S/ 9.90',
   precioNota: 'Precio de lanzamiento',
-  precioRegular: 'S/ 19,90',
+  precioRegular: 'S/ 19.90',
   descuento: 50,
   beneficios: [
     ['Versión PDF', 'descargable con acceso inmediato por WhatsApp'],
