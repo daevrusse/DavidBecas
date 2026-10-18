@@ -1,5 +1,5 @@
 import { motion } from 'motion/react'
-import PhoneMockup from './PhoneMockup'
+import heroAsesoria from '../../assets/img/hero-asesoria.webp'
 
 export default function Hero() {
   return (
@@ -61,7 +61,35 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
         >
-          <PhoneMockup />
+          <div className="relative mx-auto w-full max-w-xl">
+            {/* Halo de fondo */}
+            <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-br from-[#0AA6FF]/30 via-[#F5C002]/25 to-transparent blur-2xl" />
+            <img
+              src={heroAsesoria}
+              alt="David Becas dando una asesoría grupal de Beca 18 por Google Meet"
+              width="1200" height="675"
+              fetchpriority="high"
+              className="aspect-video w-full rounded-3xl border-4 border-white object-cover shadow-[0_30px_80px_-20px_rgba(1,86,157,0.45)]"
+            />
+            {/* Tarjetas flotantes */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+              className="absolute -bottom-6 left-4 rounded-2xl bg-white px-4 py-3 text-left shadow-lg sm:-left-6"
+            >
+              <p className="text-xs text-gray-500">Asesorías en vivo</p>
+              <p className="font-bold text-[#01569D]">Google Meet · 1 h</p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: -15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.1, duration: 0.6 }}
+              className="absolute -top-5 right-4 rounded-2xl bg-[#F5C002] px-4 py-2 text-left shadow-lg sm:-right-4"
+            >
+              <p className="text-sm font-bold text-gray-900">+1500 postulantes orientados</p>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>
