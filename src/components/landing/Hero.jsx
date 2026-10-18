@@ -28,7 +28,7 @@ export default function Hero() {
           transition={{ duration: 0.7, ease: 'easeOut' }}
           className="mx-auto max-w-xl text-white md:mx-0"
         >
-          <span className="inline-block rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm sm:px-4 sm:text-sm">
+          <span className="inline-block rounded-full bg-[#F5C002] px-3 py-1 text-xs font-bold text-gray-900 shadow-md sm:px-4 sm:text-sm">
             Especialista en Beca18 y becas del PRONABEC
           </span>
 
