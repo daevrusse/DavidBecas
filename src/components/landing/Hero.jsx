@@ -13,26 +13,28 @@ export default function Hero() {
           alt="David, asesor educativo de Beca 18"
           width="1024" height="1536"
           fetchpriority="high"
-          className="block h-auto w-full xl:absolute xl:inset-0 xl:h-full xl:object-cover xl:object-right"
+          className="block aspect-[4/5] w-full object-cover object-bottom md:aspect-auto md:h-auto xl:absolute xl:inset-0 xl:h-full xl:object-cover xl:object-right"
         />
       </picture>
+      {/* Celular: funde el borde inferior de la imagen con el fondo azul */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 aspect-[4/5] bg-gradient-to-b from-transparent from-70% to-[#0039BE] md:hidden" />
       {/* Escritorio: capa suave para que el texto se lea sobre el lado izquierdo */}
       <div className="absolute inset-0 hidden bg-gradient-to-r from-[#0A2A8C]/60 via-transparent to-transparent xl:block" />
 
-      <div className="relative mx-auto flex max-w-6xl items-center px-6 pb-14 pt-2 text-left md:pt-10 xl:w-full xl:py-10">
+      <div className="relative mx-auto -mt-28 flex max-w-6xl items-center px-5 pb-10 text-center md:mt-0 md:px-6 md:pb-14 md:pt-10 md:text-left xl:w-full xl:py-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
-          className="max-w-xl text-white"
+          className="mx-auto max-w-xl text-white md:mx-0"
         >
-          <span className="inline-block rounded-full bg-white/15 px-4 py-1 text-sm font-semibold text-white backdrop-blur-sm">
+          <span className="inline-block rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm sm:px-4 sm:text-sm">
             Especialista en Beca18 y becas del PRONABEC
           </span>
 
-          <h1 className="mt-5 font-varela-round text-4xl font-bold leading-tight sm:text-5xl">
+          <h1 className="mt-4 font-varela-round text-[clamp(1.6rem,8vw,2rem)] font-bold leading-tight drop-shadow-md sm:text-5xl md:mt-5">
             Este es el momento de conseguir{' '}
-            <span className="relative inline-block sm:whitespace-nowrap">
+            <span className="relative inline-block whitespace-nowrap">
               la beca de tus sueños
               {/* Subrayado dibujado a mano */}
               <svg
@@ -50,22 +52,22 @@ export default function Hero() {
             </span>
           </h1>
 
-          <p className="mt-6 max-w-lg text-lg text-white/85">
+          <p className="mt-5 max-w-lg text-base text-white/90 sm:text-lg md:mt-6">
             Postula acompañado por expertos. Calcula tu puntaje de preselección y selección,
             elige la universidad/instituto/escuela que más te conviene para ganar tu beca.
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-7 grid grid-cols-2 gap-3 sm:flex md:mt-8">
             <a
               href="https://www.pronabec.gob.pe/beca-18/"
               target="_blank" rel="noopener noreferrer"
-              className="rounded-xl bg-[#F5C002] px-7 py-3 text-center font-bold text-gray-900 shadow-md transition hover:-translate-y-0.5 hover:bg-[#ffd23d]"
+              className="rounded-xl bg-[#F5C002] px-4 py-3 text-center sm:px-7 font-bold text-gray-900 shadow-md transition hover:-translate-y-0.5 hover:bg-[#ffd23d]"
             >
               Beca 18
             </a>
             <a
               href="#servicios"
-              className="rounded-xl border-2 border-white px-7 py-3 text-center font-bold text-white transition hover:bg-white hover:text-[#0A2A8C]"
+              className="rounded-xl border-2 border-white px-4 py-3 text-center sm:px-7 font-bold text-white transition hover:bg-white hover:text-[#0A2A8C]"
             >
               Ver asesorías
             </a>
