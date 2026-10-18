@@ -80,10 +80,10 @@ export const faqs = [
   },
   {
     p: '¿Cómo funciona la asesoría personalizada?',
-    r: 'Es una sesión de 55 minutos por Google Meet en la que revisamos tu caso: puntajes, elección de IES, postulación por SIBEC y tus dudas.',
+    r: 'Es una sesión 1 a 1 de 1 hora por Google Meet en la que revisamos tu caso: puntajes, etapas de preselección y selección, postulación por SIBEC y elección de carrera e IES. Incluye gratis la Guía del postulante Beca18-2027.',
   },
   {
-    p: '¿Cuál es la diferencia entre el grupo general y el premium?',
-    r: 'El grupo general es gratuito y te da apoyo de la comunidad. El premium suma seguimiento de la beca, estadísticas, asesoría grupal los sábados y soporte en el grupo.',
+    p: '¿Qué diferencia hay entre la asesoría grupal y la personalizada?',
+    r: 'La asesoría grupal es una sesión de 1 hora por Google Meet con otros postulantes, para resolver dudas sobre la convocatoria, puntajes y estadísticas. La personalizada es 1 a 1 con David Becas y revisa tu caso completo.',
   },
 ]

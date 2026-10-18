@@ -11,8 +11,8 @@ export default function AddsCalculators() {
          </div>
          <div className='inline-block bg-[#10887B] text-white rounded-lg px-5 py-2.5 m-1'>
          <a href="https://wa.link/enn0ns" target='_blank'>
-            <p>Grupo premium</p>
-            <p>(Privado)</p>
+            <p>Asesoría grupal</p>
+            <p>BECA18</p>
          </a>
          </div>
          <div className='inline-block bg-[#10887B] text-white  rounded-lg px-5 py-2.5 m-1'>

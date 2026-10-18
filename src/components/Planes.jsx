@@ -19,6 +19,11 @@ const Icono = {
       <rect x="2" y="6" width="14" height="12" rx="2" /><path d="m22 8-6 4 6 4V8z" />
     </svg>
   ),
+  reloj: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 shrink-0">
+      <circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" />
+    </svg>
+  ),
   check: (
     <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 shrink-0">
       <path fillRule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.7-9.3a1 1 0 0 0-1.4-1.4L9 10.6 7.7 9.3a1 1 0 0 0-1.4 1.4l2 2a1 1 0 0 0 1.4 0l4-4Z" clipRule="evenodd" />
@@ -28,57 +33,67 @@ const Icono = {
 
 const plans = [
   {
-    title: 'Grupo general',
+    title: 'Grupo General',
     tagline: 'Únete a la comunidad de postulantes',
     icon: 'comunidad',
     price: 'Gratis',
-    features: ['Apoyo general', 'Comunidad de postulantes'],
-    cta: 'Unirme gratis',
+    features: [
+      'Acceso al grupo de WhatsApp general de postulantes',
+      'Avisos de fechas clave de la convocatoria',
+      'Apoyo general',
+    ],
+    cta: '¡Únete gratis!',
     link: 'https://chat.whatsapp.com/BuL11vQlfby5XrsixQBnRX',
   },
   {
-    title: 'Grupo Premium',
-    tagline: 'Acompañamiento durante todo el proceso',
+    title: 'Asesoría Grupal',
+    tagline: 'Absuelve tus dudas en una sesión grupal',
     icon: 'corona',
-    price: 'S/ 14.99',
-    regularPrice: 'S/ 25',
-    descuento: 40,
+    price: 'S/ 9,90',
+    regularPrice: 'S/ 19,90',
+    descuento: 50,
     features: [
-      'Beneficios del grupo general',
-      'Seguimiento de la beca',
-      'Estadísticas, puntajes, admisión y más de Beca 18',
-      'Asesoría grupal los sábados',
-      'Soporte 24/7 en el grupo',
+      'Despeja tus dudas de Beca18 en una asesoría grupal',
+      'Orientación en puntajes y estadísticas',
+      'Orientación de la convocatoria',
     ],
-    cta: 'Quiero el Premium',
+    duracion: '1 h x Google Meet grupal',
+    cta: 'Quiero una asesoría grupal',
     isPremium: true,
     link: 'https://wa.link/enn0ns',
   },
   {
     title: 'Asesoría Personalizada',
-    tagline: 'Sesión 1 a 1 con un asesor experto',
+    tagline: 'Sesión 1 a 1 con David Becas',
     icon: 'video',
-    price: 'S/ 24.99',
-    regularPrice: 'S/ 35',
-    descuento: 29,
-    nota: '55 min · Google Meet',
+    price: 'S/ 39,90',
+    regularPrice: 'S/ 59,90',
+    descuento: 33,
     features: [
-      'Despeja todas tus dudas sobre Beca 18',
-      'Cómo obtener la constancia de ingreso',
-      'Puntajes para ganar la beca',
-      'Postulación por SIBEC',
-      'Todo sobre la etapa de selección',
+      'Despeja todas tus dudas de Beca18 en **asesoría 1 a 1**',
+      'Orientación en puntajes y estadísticas',
+      'Orientación paso a paso de las etapas preselección y selección',
+      'Orientación en postulación en la plataforma SIBEC',
+      'Orientación en elección de carrera e IES (universidad/instituto/escuela)',
       'Otras dudas del postulante',
+      'Incluye gratis **Guía del postulante Beca18-2027 actualizada** (precio regular S/ 19,90)',
     ],
-    cta: 'Reservar asesoría',
+    duracion: '1 h x Google Meet',
+    cta: 'Quiero una asesoría personalizada',
     link: 'https://wa.link/lxneu1',
   },
 ];
 
+// Convierte '**texto**' en negrita
+const conNegrita = (t) =>
+  t.split(/(\*\*[^*]+\*\*)/).map((parte, i) =>
+    parte.startsWith('**') ? <strong key={i}>{parte.slice(2, -2)}</strong> : parte
+  );
+
 const PREMIUM = plans.findIndex((p) => p.isPremium);
 
 // Tarjeta de plan. El Premium usa fondo azul para destacar.
-const PlanCard = ({ title, tagline, icon, price, regularPrice, descuento, nota, features, cta, isPremium, link }) => (
+const PlanCard = ({ title, tagline, icon, price, regularPrice, descuento, nota, duracion, features, cta, isPremium, link }) => (
   <div
     className={`relative flex h-full flex-col rounded-3xl p-7 text-left transition duration-300 hover:-translate-y-1 ${
       isPremium
@@ -115,7 +130,7 @@ const PlanCard = ({ title, tagline, icon, price, regularPrice, descuento, nota, 
 
     <a
       href={link} target="_blank" rel="noopener noreferrer"
-      className={`mt-6 block rounded-xl py-3 text-center font-bold transition ${
+      className={`mt-6 block rounded-xl px-4 py-3 text-center font-bold transition ${
         isPremium
           ? 'bg-[#F5C002] text-gray-900 hover:bg-[#ffd23d]'
           : 'border-2 border-[#01569D] text-[#01569D] hover:bg-[#01569D] hover:text-white'
@@ -127,14 +142,20 @@ const PlanCard = ({ title, tagline, icon, price, regularPrice, descuento, nota, 
     <hr className={`my-6 ${isPremium ? 'border-white/20' : 'border-gray-100'}`} />
 
     <p className={`mb-4 text-xs font-bold uppercase tracking-wider ${isPremium ? 'text-white/70' : 'text-gray-400'}`}>Incluye</p>
-    <ul className="flex-grow space-y-3">
+    <ul className="space-y-3 md:flex-grow">
       {features.map((f) => (
         <li key={f} className="flex items-start gap-2.5">
           <span className={isPremium ? 'text-[#F5C002]' : 'text-[#0AA6FF]'}>{Icono.check}</span>
-          <span className={isPremium ? 'text-white/95' : 'text-gray-700'}>{f}</span>
+          <span className={isPremium ? 'text-white/95' : 'text-gray-700'}>{conNegrita(f)}</span>
         </li>
       ))}
     </ul>
+
+    {duracion && (
+      <p className={`mt-5 flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold ${isPremium ? 'bg-white/10 text-white' : 'bg-[#F5FAFF] text-[#01569D]'}`}>
+        {Icono.reloj} Duración: {duracion}
+      </p>
+    )}
 
   </div>
 );
@@ -184,13 +205,17 @@ export default function Planes() {
           className="px-6 md:px-0"
         >
           <span className="inline-block rounded-full bg-[#01569D]/10 px-4 py-1 text-sm font-semibold text-[#01569D]">
-            Planes y asesorías
+            Beca18-2027
           </span>
           <h2 className="mt-4 font-varela-round text-3xl font-bold text-gray-900 sm:text-4xl">
-            Elige cómo quieres <span className="text-[#0AA6FF]">ganar tu beca</span>
+            Nuestros <span className="text-[#0AA6FF]">Planes</span>
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-gray-600">
-            Empieza gratis en la comunidad o recibe acompañamiento experto en cada etapa de Beca 18.
+          <p className="mx-auto mt-3 flex max-w-2xl flex-wrap items-center justify-center gap-x-3 gap-y-1 text-gray-600">
+            <span><strong className="text-gray-800">David Becas:</strong> Exbecario Beca18 en UPC</span>
+            <span className="text-[#F5C002]">●</span>
+            <span>+1500 postulantes orientados</span>
+            <span className="text-[#F5C002]">●</span>
+            <span>+6 años en educación superior</span>
           </p>
         </motion.div>
 
