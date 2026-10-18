@@ -21,7 +21,7 @@ export default function Hero() {
       {/* Escritorio: capa suave para que el texto se lea sobre el lado izquierdo */}
       <div className="absolute inset-0 hidden bg-gradient-to-r from-[#0A2A8C]/60 via-transparent to-transparent xl:block" />
 
-      <div className="relative mx-auto -mt-28 flex max-w-6xl items-center px-5 pb-10 text-center md:mt-0 md:px-6 md:pb-14 md:pt-10 md:text-left xl:w-full xl:py-10">
+      <div className="relative mx-auto -mt-28 flex max-w-6xl items-center px-5 pb-14 text-center md:mt-0 md:px-6 md:pb-20 md:pt-10 md:text-left xl:w-full xl:pb-20 xl:pt-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
