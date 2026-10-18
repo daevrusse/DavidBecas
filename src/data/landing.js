@@ -6,11 +6,7 @@ export const stats = [
   { valor: '+1500', etiqueta: 'Postulantes orientados' },
   { valor: '+4 años', etiqueta: 'Guiando postulantes a Beca 18' },
   { valor: 'Embajador', etiqueta: 'PRONABEC' },
-  {
-    valor: '+6 años',
-    etiqueta: 'De experiencia en educación superior',
-    detalle: 'Universidad UPC, Laureate Education Perú, Universidad ESAN, Instituto y Escuela Superior Continental',
-  },
+  { valor: '+6 años', etiqueta: 'De experiencia en educación superior' },
 ]
 
 // Contador "¡Convocatoria 2027!" (fuente: https://www.pronabec.gob.pe/beca-18/)
