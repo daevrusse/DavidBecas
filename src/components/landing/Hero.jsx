@@ -1,24 +1,25 @@
 import { motion } from 'motion/react'
-import heroBg from '../../assets/img/hero-bg.webp'
+import heroDesktop from '../../assets/img/hero-desktop.webp'
+import heroMovil from '../../assets/img/hero-movil.webp'
 
 export default function Hero() {
   return (
-    <section className="relative mt-20 overflow-hidden bg-[#0A2A8C]">
-      {/* Imagen de fondo */}
-      <img
-        src={heroBg}
-        alt=""
-        aria-hidden="true"
-        width="1920" height="768"
-        fetchpriority="high"
-        className="block h-72 w-full object-cover object-[80%_top] sm:h-96 lg:absolute lg:inset-0 lg:h-full lg:object-[70%_top]"
-      />
-      {/* Capa para que el texto se lea bien sobre la imagen (escritorio) */}
-      <div className="absolute inset-0 hidden bg-gradient-to-r from-[#0A2A8C]/80 via-[#0A2A8C]/40 to-transparent lg:block" />
-      {/* Celular: transición suave de la foto al fondo azul */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-transparent via-transparent to-[#0A2A8C] sm:h-96 lg:hidden" />
+    <section className="relative mt-20 overflow-hidden bg-[#0039BE] md:bg-[#0C45B9] xl:flex xl:h-[max(500px,31.25vw)] xl:items-center">
+      {/* Banner: diseño vertical en celular, horizontal en tablet y escritorio */}
+      <picture>
+        <source media="(min-width: 768px)" srcSet={heroDesktop} width="2000" height="625" />
+        <img
+          src={heroMovil}
+          alt="David, asesor educativo de Beca 18"
+          width="1024" height="1536"
+          fetchpriority="high"
+          className="block h-auto w-full xl:absolute xl:inset-0 xl:h-full xl:object-cover xl:object-right"
+        />
+      </picture>
+      {/* Escritorio: capa suave para que el texto se lea sobre el lado izquierdo */}
+      <div className="absolute inset-0 hidden bg-gradient-to-r from-[#0A2A8C]/60 via-transparent to-transparent xl:block" />
 
-      <div className="relative mx-auto flex max-w-6xl items-center px-6 pb-14 pt-6 text-left lg:min-h-[600px] lg:py-16">
+      <div className="relative mx-auto flex max-w-6xl items-center px-6 pb-14 pt-2 text-left md:pt-10 xl:w-full xl:py-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
