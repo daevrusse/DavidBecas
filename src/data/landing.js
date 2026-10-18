@@ -84,3 +84,25 @@ export const faqs = [
     r: 'La asesoría grupal es una sesión de 1 hora por Google Meet con otros postulantes, para resolver dudas sobre la convocatoria, puntajes y estadísticas. La personalizada es 1 a 1 con David Becas y revisa tu caso completo.',
   },
 ]
+
+// Producto adicional: Guía del postulante
+export const guia = {
+  titulo: 'Guía del postulante Beca18‑2027', // guion que no se corta
+  etiqueta: 'actualizada',
+  autor: 'Por David Becas: Exbecario Beca18 · +1500 postulantes orientados',
+  subtitulo: 'No te pierdas todos los cambios de la convocatoria. Tu guía paso a paso de postulación.',
+  precio: 'S/ 9,90',
+  precioNota: 'Precio de lanzamiento',
+  precioRegular: 'S/ 19,90',
+  descuento: 50,
+  beneficios: [
+    ['Versión PDF', 'descargable con acceso inmediato por WhatsApp'],
+    ['Versión en línea', 'que se actualiza con cada cambio de la convocatoria'],
+    ['Paso a paso', 'de las etapas de preselección y selección, sin perderte nada'],
+  ],
+  cta: 'Quiero mi guía del postulante',
+  // Enlace de compra (WhatsApp). Cambiar si la guía tiene un enlace propio.
+  link: 'https://wa.link/lxneu1',
+  // Ruta o URL del PDF de vista previa. Mientras esté vacío, el botón "Ver vista previa" no se muestra.
+  vistaPrevia: '',
+}

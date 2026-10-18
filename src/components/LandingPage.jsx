@@ -7,6 +7,7 @@ import Faq from './landing/Faq'
 import CtaBanner from './landing/CtaBanner'
 import Reveal from './landing/Reveal'
 import Planes from './Planes'
+import GuiaPostulante from './landing/GuiaPostulante'
 
 export default function LandingPage() {
   return (
@@ -18,6 +19,9 @@ export default function LandingPage() {
 
       {/* Planes de servicio (id="servicios") */}
       <Planes />
+
+      {/* Producto adicional: Guía del postulante (id="guia") */}
+      <GuiaPostulante />
 
       <section className="mx-auto max-w-4xl px-6 pb-10">
         <Reveal>
