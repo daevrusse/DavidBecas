@@ -3,7 +3,7 @@ import heroBg from '../../assets/img/hero-bg.webp'
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#0A2A8C]">
+    <section className="relative mt-20 overflow-hidden bg-[#0A2A8C]">
       {/* Imagen de fondo */}
       <img
         src={heroBg}
@@ -11,12 +11,14 @@ export default function Hero() {
         aria-hidden="true"
         width="1920" height="768"
         fetchpriority="high"
-        className="absolute inset-0 h-full w-full object-cover object-[72%_center]"
+        className="block h-72 w-full object-cover object-[80%_top] sm:h-96 lg:absolute lg:inset-0 lg:h-full lg:object-[70%_top]"
       />
-      {/* Capa para que el texto se lea bien (más fuerte en celular) */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0A2A8C]/95 via-[#0A2A8C]/75 to-[#0A2A8C]/30 lg:from-[#0A2A8C]/80 lg:via-[#0A2A8C]/40 lg:to-transparent" />
+      {/* Capa para que el texto se lea bien sobre la imagen (escritorio) */}
+      <div className="absolute inset-0 hidden bg-gradient-to-r from-[#0A2A8C]/80 via-[#0A2A8C]/40 to-transparent lg:block" />
+      {/* Celular: transición suave de la foto al fondo azul */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-transparent via-transparent to-[#0A2A8C] sm:h-96 lg:hidden" />
 
-      <div className="relative mx-auto flex min-h-[620px] max-w-6xl items-center px-6 pb-20 pt-32 text-left lg:min-h-[680px] lg:pt-36">
+      <div className="relative mx-auto flex max-w-6xl items-center px-6 pb-14 pt-6 text-left lg:min-h-[600px] lg:py-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
