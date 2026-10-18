@@ -1,7 +1,7 @@
 import Hero from './landing/Hero'
 import StatsBand from './landing/StatsBand'
-import Benefits from './landing/Benefits'
-import Steps from './landing/Steps'
+import Convocatoria from './landing/Convocatoria'
+import Cronograma from './landing/Cronograma'
 import Testimonials from './landing/Testimonials'
 import Faq from './landing/Faq'
 import CtaBanner from './landing/CtaBanner'
@@ -13,8 +13,8 @@ export default function LandingPage() {
     <main className="font-cairo">
       <Hero />
       <StatsBand />
-      <Benefits />
-      <Steps />
+      <Convocatoria />
+      <Cronograma />
 
       {/* Planes de servicio (id="servicios") */}
       <Planes />

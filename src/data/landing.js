@@ -1,12 +1,34 @@
 // Contenido editable de la landing.
-// IMPORTANTE: las cifras y testimonios marcados con `ejemplo: true` son DATOS DE PRUEBA.
+// IMPORTANTE: los testimonios marcados con `ejemplo: true` son DATOS DE PRUEBA.
 // Reemplázalos por datos reales y cambia `ejemplo` a false; la etiqueta "Ejemplo" desaparece sola.
 
 export const stats = [
-  { valor: '+500', etiqueta: 'Postulantes asesorados', ejemplo: true },
-  { valor: '5', etiqueta: 'Años de experiencia', ejemplo: true },
-  { valor: '+20K', etiqueta: 'Seguidores en redes', ejemplo: true },
-  { valor: '4,9', etiqueta: 'Calificación de asesorías', ejemplo: true },
+  { valor: '+1500', etiqueta: 'Postulantes orientados' },
+  { valor: '+4 años', etiqueta: 'Guiando postulantes a Beca 18' },
+  { valor: 'Embajador', etiqueta: 'PRONABEC' },
+  {
+    valor: '+6 años',
+    etiqueta: 'De experiencia en educación superior',
+    detalle: 'Universidad UPC, Laureate Education Perú, Universidad ESAN, Instituto y Escuela Superior Continental',
+  },
+]
+
+// Contador "¡Convocatoria 2027!" (fuente: https://www.pronabec.gob.pe/beca-18/)
+export const convocatoria = {
+  titulo: '¡Convocatoria 2027!',
+  becas: 6000,
+  etiqueta: 'becas integrales',
+  fuente: 'https://www.pronabec.gob.pe/beca-18/',
+}
+
+// Cronograma oficial Beca 18 – Convocatoria 2027 (fuente: https://www.pronabec.gob.pe/beca-18/)
+// Fechas en formato AAAA-MM-DD. "fin" es opcional (para rangos).
+export const cronograma = [
+  { titulo: 'Inscripción al ENP', inicio: '2026-10-09', fin: '2026-10-18', nota: 'Hasta las 11:59 h (mediodía)' },
+  { titulo: 'Revisión de la inscripción', inicio: '2026-10-10', fin: '2026-11-06' },
+  { titulo: 'Publicación de postulantes aptos para rendir el ENP', inicio: '2026-11-11' },
+  { titulo: 'Aplicación del ENP', inicio: '2026-11-22' },
+  { titulo: 'Publicación de lista de preseleccionados', inicio: '2026-12-23' },
 ]
 
 export const pasos = [
