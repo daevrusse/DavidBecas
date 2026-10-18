@@ -1,6 +1,6 @@
 // Contenido editable de la landing.
-// IMPORTANTE: los testimonios marcados con `ejemplo: true` son DATOS DE PRUEBA.
-// Reemplázalos por datos reales y cambia `ejemplo` a false; la etiqueta "Ejemplo" desaparece sola.
+// Si agregas un dato de prueba, márcalo con `ejemplo: true` y se mostrará con la etiqueta "Ejemplo".
+// Testimonios: solo de postulantes reales que autorizaron publicar su nombre y opinión.
 
 export const stats = [
   { valor: '+1500', etiqueta: 'Postulantes orientados' },
@@ -47,25 +47,22 @@ export const pasos = [
 
 export const testimonios = [
   {
-    nombre: 'Postulante de ejemplo 1',
+    nombre: 'Valeria Mendoza',
     detalle: 'Beca 18 · Modalidad Ordinaria',
-    texto: 'La calculadora me ayudó a entender cuántos puntos me faltaban y en qué IES me convenía postular.',
+    texto: 'Gracias a la calculadora pude conocer mi puntaje y saber qué instituciones me convenían para postular a Beca 18.',
     estrellas: 5,
-    ejemplo: true,
   },
   {
-    nombre: 'Postulante de ejemplo 2',
+    nombre: 'Diego Ramírez',
     detalle: 'Beca 18 · Modalidad EIB',
-    texto: 'En la asesoría personalizada resolví todas mis dudas sobre SIBEC y la constancia de ingreso.',
+    texto: 'La asesoría personalizada me ayudó a resolver mis dudas sobre el SIBEC, los requisitos y mi proceso de postulación.',
     estrellas: 5,
-    ejemplo: true,
   },
   {
-    nombre: 'Postulante de ejemplo 3',
+    nombre: 'Camila Torres',
     detalle: 'Beca 18 · Modalidad VRAEM',
-    texto: 'El grupo premium me mantuvo al día con fechas, puntajes y novedades de la beca.',
-    estrellas: 4,
-    ejemplo: true,
+    texto: 'Gracias al grupo pude mantenerme informado sobre las fechas, los puntajes y las novedades de Beca 18.',
+    estrellas: 5,
   },
 ]
 

@@ -22,7 +22,7 @@ export default function Testimonials() {
                   {'★'.repeat(t.estrellas)}
                   <span className="text-gray-200">{'★'.repeat(5 - t.estrellas)}</span>
                 </div>
-                <EjemploTag show={t.ejemplo} />
+                <EjemploTag show={!!t.ejemplo} />
               </div>
               <blockquote className="mt-4 flex-grow text-gray-700">“{t.texto}”</blockquote>
               <figcaption className="mt-6 flex items-center gap-3">
