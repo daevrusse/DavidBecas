@@ -1,208 +1,82 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment } from 'react';
 import { motion } from 'motion/react';
 
-// Íconos simples en línea (heredan el color con currentColor)
-const Icono = {
-  comunidad: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7">
-      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" />
-      <path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
-    </svg>
-  ),
-  corona: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7">
-      <path d="M2 18h20" /><path d="M3 18 2 7l5.5 4L12 4l4.5 7L22 7l-1 11" />
-    </svg>
-  ),
-  video: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7">
-      <rect x="2" y="6" width="14" height="12" rx="2" /><path d="m22 8-6 4 6 4V8z" />
-    </svg>
-  ),
-  reloj: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 shrink-0">
-      <circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" />
-    </svg>
-  ),
-  check: (
-    <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 shrink-0">
-      <path fillRule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.7-9.3a1 1 0 0 0-1.4-1.4L9 10.6 7.7 9.3a1 1 0 0 0-1.4 1.4l2 2a1 1 0 0 0 1.4 0l4-4Z" clipRule="evenodd" />
-    </svg>
-  ),
-};
-
+// Planes (columnas de la tabla). `destacado` resalta la columna.
 const plans = [
   {
-    title: 'Grupo General',
-    tagline: 'Únete a la comunidad de postulantes',
-    icon: 'comunidad',
+    nombre: 'General',
+    duracion: 'Grupo de WhatsApp',
     price: 'Gratis',
-    features: [
-      'Acceso al grupo de WhatsApp general de postulantes',
-      'Avisos de fechas clave de la convocatoria',
-      'Apoyo general',
-    ],
-    cta: '¡Únete gratis!',
+    cta: 'Unirme gratis',
     link: 'https://chat.whatsapp.com/BuL11vQlfby5XrsixQBnRX',
   },
   {
-    title: 'Asesoría Grupal',
-    tagline: 'Absuelve tus dudas en una sesión grupal',
-    icon: 'corona',
+    nombre: 'Grupal',
+    duracion: '1 h · Meet grupal',
     price: 'S/ 9.90',
     regularPrice: 'S/ 19.90',
     descuento: 50,
-    features: [
-      'Despeja tus dudas de Beca18 en una asesoría grupal',
-      'Orientación en puntajes y estadísticas',
-      'Orientación de la convocatoria',
-    ],
-    duracion: '1 h x Google Meet grupal',
-    cta: 'Quiero una asesoría grupal',
-    isPremium: true,
+    cta: 'Reservar',
     link: 'https://wa.link/enn0ns',
+    destacado: true,
   },
   {
-    title: 'Asesoría Personalizada',
-    tagline: 'Sesión 1 a 1 con David Becas',
-    icon: 'video',
+    nombre: 'Personalizada',
+    duracion: '1 h · Meet 1 a 1',
     price: 'S/ 39.90',
     regularPrice: 'S/ 59.90',
     descuento: 33,
-    features: [
-      'Despeja todas tus dudas de Beca18 en **asesoría 1 a 1**',
-      'Orientación en puntajes y estadísticas',
-      'Orientación paso a paso de las etapas preselección y selección',
-      'Orientación en postulación en la plataforma SIBEC',
-      'Orientación en elección de carrera e IES (universidad/instituto/escuela)',
-      'Otras dudas del postulante',
-      'Incluye gratis **Guía del postulante Beca18-2027 actualizada** (precio regular S/ 19.90)',
-    ],
-    duracion: '1 h x Google Meet',
-    cta: 'Quiero una asesoría personalizada',
+    cta: 'Reservar',
     link: 'https://wa.link/lxneu1',
   },
 ];
 
-// Convierte '**texto**' en negrita
-const conNegrita = (t) =>
-  t.split(/(\*\*[^*]+\*\*)/).map((parte, i) =>
-    parte.startsWith('**') ? <strong key={i}>{parte.slice(2, -2)}</strong> : parte
-  );
+// Filas de la tabla: [texto, General, Grupal, Personalizada]
+// true = incluye · false = no incluye · texto = se muestra tal cual
+const filas = [
+  ['Grupo de WhatsApp de postulantes', true, true, true],
+  ['Avisos de fechas clave', true, true, true],
+  ['Apoyo general', true, true, true],
+  ['Asesoría por Google Meet', false, 'Grupal', '1 a 1'],
+  ['Orientación de la convocatoria', false, true, true],
+  ['Orientación en puntajes y estadísticas', false, true, true],
+  ['Etapas de preselección y selección', false, false, true],
+  ['Postulación en SIBEC', false, false, true],
+  ['Elección de carrera e IES', false, false, true],
+  ['Otras dudas del postulante', false, false, true],
+  ['Guía del postulante 2027 gratis', false, false, true],
+];
 
-const PREMIUM = plans.findIndex((p) => p.isPremium);
-
-// Tarjeta de plan. El Premium usa fondo azul para destacar.
-const PlanCard = ({ title, tagline, icon, price, regularPrice, descuento, nota, duracion, features, cta, isPremium, link }) => (
-  <div
-    className={`relative flex h-full flex-col rounded-3xl p-7 text-left transition duration-300 hover:-translate-y-1 ${
-      isPremium
-        ? 'bg-gradient-to-br from-[#01569D] via-[#01569D] to-[#0AA6FF] text-white shadow-[0_25px_60px_-15px_rgba(1,86,157,0.6)] md:-my-4 md:py-11'
-        : 'border border-gray-100 bg-white text-gray-900 shadow-lg hover:shadow-xl'
-    }`}
-  >
-    {isPremium && (
-      <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#F5C002] px-4 py-1 text-xs font-bold uppercase tracking-wide text-gray-900 shadow">
-        ★ Recomendado
-      </span>
-    )}
-
-    <div className="flex items-center gap-3">
-      <span className={`flex h-12 w-12 items-center justify-center rounded-2xl ${isPremium ? 'bg-white/15 text-[#F5C002]' : 'bg-[#FFF1CC] text-[#01569D]'}`}>
-        {Icono[icon]}
-      </span>
-      <div>
-        <h3 className="font-varela-round text-xl font-bold">{title}</h3>
-        <p className={`text-sm ${isPremium ? 'text-white/80' : 'text-gray-500'}`}>{tagline}</p>
-      </div>
-    </div>
-
-    <div className="mt-6 flex items-end gap-3">
-      <span className="font-varela-round text-5xl font-bold leading-none">{price}</span>
-      {regularPrice && (
-        <span className="flex flex-col pb-1 text-sm leading-tight">
-          <span className={`line-through ${isPremium ? 'text-white/60' : 'text-gray-400'}`}>{regularPrice}</span>
-          <span className={`font-bold ${isPremium ? 'text-[#F5C002]' : 'text-emerald-600'}`}>-{descuento}%</span>
-        </span>
-      )}
-    </div>
-    {nota && <p className={`mt-2 text-sm ${isPremium ? 'text-white/80' : 'text-gray-500'}`}>{nota}</p>}
-
-    <a
-      href={link} target="_blank" rel="noopener noreferrer"
-      className={`mt-6 block rounded-xl px-4 py-3 text-center font-bold transition ${
-        isPremium
-          ? 'bg-[#F5C002] text-gray-900 hover:bg-[#ffd23d]'
-          : 'border-2 border-[#01569D] text-[#01569D] hover:bg-[#01569D] hover:text-white'
-      }`}
-    >
-      {cta} →
-    </a>
-
-    <hr className={`my-6 ${isPremium ? 'border-white/20' : 'border-gray-100'}`} />
-
-    <p className={`mb-4 text-xs font-bold uppercase tracking-wider ${isPremium ? 'text-white/70' : 'text-gray-400'}`}>Incluye</p>
-    <ul className="space-y-3 md:flex-grow">
-      {features.map((f) => (
-        <li key={f} className="flex items-start gap-2.5">
-          <span className={isPremium ? 'text-[#F5C002]' : 'text-[#0AA6FF]'}>{Icono.check}</span>
-          <span className={isPremium ? 'text-white/95' : 'text-gray-700'}>{conNegrita(f)}</span>
-        </li>
-      ))}
-    </ul>
-
-    {duracion && (
-      <p className={`mt-5 flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold ${isPremium ? 'bg-white/10 text-white' : 'bg-[#F5FAFF] text-[#01569D]'}`}>
-        {Icono.reloj} Duración: {duracion}
-      </p>
-    )}
-
-  </div>
+const Si = () => (
+  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-[#10B981]" aria-label="Incluye">
+    <path d="m4.5 10.5 3.5 3.5 7.5-8" />
+  </svg>
+);
+const No = () => (
+  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="h-4 w-4 text-gray-300" aria-label="No incluye">
+    <path d="m5 5 10 10M15 5 5 15" />
+  </svg>
 );
 
-// Sección de planes.
-// Móvil: carrusel deslizable (scroll-snap) con indicadores; escritorio: 3 columnas.
+const Valor = ({ v }) =>
+  v === true ? <Si /> : v === false ? <No /> : <span className="text-xs font-bold text-[#0C45B9] sm:text-sm">{v}</span>;
+
+// Fondo de cada celda según la columna (la destacada lleva tinte azul)
+const fondoCol = (p) => (p.destacado ? 'bg-[#EEF4FF]' : 'bg-white');
+
 export default function Planes() {
-  const trackRef = useRef(null);
-  const [activo, setActivo] = useState(PREMIUM);
-
-  const irA = (i, smooth = true) => {
-    const track = trackRef.current;
-    const card = track?.children[i];
-    if (!track || !card) return;
-    track.scrollTo({
-      left: card.offsetLeft - (track.clientWidth - card.clientWidth) / 2,
-      behavior: smooth ? 'smooth' : 'auto',
-    });
-  };
-
-  // En móvil, empezar mostrando el plan Premium
-  useEffect(() => {
-    if (window.matchMedia('(max-width: 767px)').matches) irA(PREMIUM, false);
-  }, []);
-
-  // Detectar la tarjeta centrada para marcar el indicador
-  const onScroll = () => {
-    const track = trackRef.current;
-    if (!track) return;
-    const centro = track.scrollLeft + track.clientWidth / 2;
-    let mejor = 0, dist = Infinity;
-    [...track.children].forEach((c, i) => {
-      const d = Math.abs(c.offsetLeft + c.clientWidth / 2 - centro);
-      if (d < dist) { dist = d; mejor = i; }
-    });
-    setActivo(mejor);
-  };
+  const totalFilas = filas.length + 2; // encabezado + filas + precios
+  const iDest = plans.findIndex((p) => p.destacado);
 
   return (
     <section id="servicios" className="bg-gradient-to-b from-white via-[#F5FAFF] to-white py-20">
-      <div className="mx-auto max-w-6xl md:px-6">
+      <div className="mx-auto max-w-6xl px-3 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
-          className="px-6 md:px-0"
+          className="px-3 sm:px-0"
         >
           <span className="inline-block rounded-full bg-[#01569D]/10 px-4 py-1 text-sm font-semibold text-[#01569D]">
             Beca18-2027
@@ -219,41 +93,129 @@ export default function Planes() {
           </p>
         </motion.div>
 
-        <div
-          ref={trackRef}
-          onScroll={onScroll}
-          className="mt-12 flex items-stretch gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth px-[7.5%] pb-6 pt-6
-                     [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
-                     md:grid md:grid-cols-3 md:items-center md:gap-6 md:overflow-visible md:px-0"
+        {/* Tabla comparativa */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.6 }}
+          role="table"
+          aria-label="Comparación de planes"
+          className="relative mx-auto mt-14 grid max-w-5xl grid-cols-[minmax(0,1.25fr)_repeat(3,minmax(0,1fr))] gap-x-1.5 text-left sm:grid-cols-[minmax(0,1.8fr)_repeat(3,minmax(0,1fr))] sm:gap-x-4"
+          style={{ gridTemplateRows: `repeat(${totalFilas}, auto)` }}
         >
-          {plans.map((plan, i) => (
-            <motion.div
-              key={plan.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.6, delay: i * 0.12 }}
-              className="w-[85%] shrink-0 snap-center md:w-auto md:self-stretch"
-            >
-              <PlanCard {...plan} />
-            </motion.div>
-          ))}
-        </div>
+          {/* Sombra y borde de la columna destacada */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none relative z-20 -my-3 rounded-2xl border-2 border-[#0C45B9] shadow-[0_25px_60px_-15px_rgba(12,69,185,0.45)]"
+            style={{ gridColumn: iDest + 2, gridRow: `1 / span ${totalFilas}` }}
+          />
+          {/* Tarjeta de fondo de las otras columnas */}
+          {plans.map((p, i) =>
+            p.destacado ? null : (
+              <div
+                key={p.nombre}
+                aria-hidden="true"
+                className="pointer-events-none rounded-2xl bg-white shadow-[0_10px_30px_-12px_rgba(1,86,157,0.25)]"
+                style={{ gridColumn: i + 2, gridRow: `1 / span ${totalFilas}` }}
+              />
+            )
+          )}
+          {/* Fondo de la columna de textos */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none rounded-2xl bg-[#F1F5FB]"
+            style={{ gridColumn: 1, gridRow: `2 / span ${filas.length}` }}
+          />
 
-        {/* Indicadores del carrusel (solo móvil) */}
-        <div className="mt-2 flex justify-center gap-2 md:hidden">
+          {/* Encabezados */}
+          <div role="columnheader" style={{ gridColumn: 1, gridRow: 1 }} />
           {plans.map((p, i) => (
-            <button
-              key={p.title}
-              type="button"
-              aria-label={`Ver plan ${p.title}`}
-              aria-current={activo === i}
-              onClick={() => irA(i)}
-              className={`h-2.5 rounded-full transition-all ${activo === i ? 'w-8 bg-[#F5C002]' : 'w-2.5 bg-gray-300'}`}
-            />
+            <div
+              key={p.nombre}
+              role="columnheader"
+              style={{ gridColumn: i + 2, gridRow: 1 }}
+              className={`relative flex flex-col items-center justify-end px-1 pb-4 ${p.destacado ? 'z-30' : 'z-10'} pt-6 text-center ${
+                p.destacado
+                  ? '-mt-3 rounded-t-2xl bg-gradient-to-b from-[#0C45B9] to-[#2563EB] pt-9 text-white'
+                  : 'rounded-t-2xl border-t-4 border-[#0AA6FF] text-gray-900'
+              }`}
+            >
+              {p.destacado && (
+                <span className="absolute -top-3 left-1/2 z-30 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#F5C002] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-gray-900 shadow sm:px-3 sm:text-xs">
+                  ★ Recomendado
+                </span>
+              )}
+              <span className={`text-[10px] uppercase tracking-[0.2em] sm:text-xs ${p.destacado ? 'text-white/75' : 'text-gray-400'}`}>
+                Plan
+              </span>
+              <span className="mt-0.5 font-varela-round text-[12px] font-bold leading-tight sm:text-xl">{p.nombre}</span>
+              <span className={`mt-1 hidden text-xs sm:block ${p.destacado ? 'text-white/80' : 'text-gray-500'}`}>{p.duracion}</span>
+            </div>
           ))}
-        </div>
-        <p className="mt-2 text-xs text-gray-400 md:hidden">Desliza para ver más planes</p>
+
+          {/* Filas */}
+          {filas.map(([texto, ...valores], f) => (
+            <Fragment key={texto}>
+              <div
+                role="rowheader"
+                style={{ gridColumn: 1, gridRow: f + 2 }}
+                className="relative z-10 flex items-center border-b border-white px-2 py-3 text-[12px] leading-snug text-gray-700 sm:px-4 sm:text-sm"
+              >
+                {texto}
+              </div>
+              {valores.map((v, c) => (
+                <div
+                  key={c}
+                  role="cell"
+                  style={{ gridColumn: c + 2, gridRow: f + 2 }}
+                  className={`relative z-10 flex items-center justify-center border-b px-1 py-3 ${
+                    plans[c].destacado ? 'border-[#DCE6FB] bg-[#EEF4FF]' : `border-gray-100 ${fondoCol(plans[c])}`
+                  }`}
+                >
+                  <Valor v={v} />
+                </div>
+              ))}
+            </Fragment>
+          ))}
+
+          {/* Precios y botones */}
+          <div style={{ gridColumn: 1, gridRow: totalFilas }} />
+          {plans.map((p, i) => (
+            <div
+              key={p.nombre}
+              style={{ gridColumn: i + 2, gridRow: totalFilas }}
+              className={`relative z-10 flex flex-col items-center rounded-b-2xl px-1 pb-5 pt-5 text-center ${
+                p.destacado ? '-mb-3 bg-[#EEF4FF] pb-8' : 'bg-white'
+              }`}
+            >
+              <span className="text-[10px] uppercase tracking-wider text-gray-400 sm:text-xs">Precio</span>
+              <span className="mt-1 font-varela-round text-base font-bold leading-none text-gray-900 sm:text-3xl">{p.price}</span>
+              {p.regularPrice ? (
+                <span className="mt-1.5 flex flex-wrap items-center justify-center gap-x-1.5 text-[11px] sm:text-sm">
+                  <span className="text-gray-400 line-through">{p.regularPrice}</span>
+                  <span className="font-bold text-[#10B981]">-{p.descuento}%</span>
+                </span>
+              ) : (
+                <span className="mt-1.5 text-[11px] text-gray-400 sm:text-sm">Para todos</span>
+              )}
+              <a
+                href={p.link} target="_blank" rel="noopener noreferrer"
+                className={`mt-4 w-full max-w-[11rem] rounded-full px-2 py-2 text-[11px] font-bold leading-tight transition hover:-translate-y-0.5 sm:text-sm ${
+                  p.destacado
+                    ? 'bg-[#F5C002] text-gray-900 shadow-md hover:bg-[#ffd23d]'
+                    : 'bg-[#0C45B9] text-white hover:bg-[#01569D]'
+                }`}
+              >
+                {p.cta}
+              </a>
+            </div>
+          ))}
+        </motion.div>
+
+        <p className="mx-auto mt-8 max-w-xl px-3 text-center text-sm text-gray-500">
+          Las asesorías se reservan por WhatsApp. Duración: 1 hora por Google Meet.
+        </p>
       </div>
     </section>
   );
